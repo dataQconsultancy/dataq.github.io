@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio | Home</title>
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --sidebar-bg: #1e293b;
+            --sidebar-text: #f8fafc;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --accent-color: #2563eb;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Layout */
+        aside {
+            width: 320px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .profile-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .profile-title {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-list {
+            list-style: none;
+            font-size: 0.85rem;
+            text-align: left;
+            margin-bottom: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+        }
+
+        .meta-list li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            color: #cbd5e1;
+        }
+
+        .sidebar-links {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--sidebar-text);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content Layout */
+        main {
+            margin-left: 320px;
+            flex: 1;
+            padding: 3rem;
+            max-width: 1000px;
+        }
+
+        section {
+            margin-bottom: 3.5rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: var(--sidebar-bg);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        /* Grid Framework for Projects/Experience */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--sidebar-bg);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+            font-size: 0.925rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        /* Badges / Tech Stack */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            aside {
+                position: static;
+                width: 100%;
+                height: auto;
+                padding: 2rem 1.5rem;
+            }
+            main {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="profile-container">
+            <div class="profile-avatar">SM</div>
+            <h1 class="profile-name">Samuel N. Mpala</h1>
+            <p class="profile-title">Bioinformatics & Data Analyst</p>
+        </div>
+
+        <ul class="meta-list">
+            <li>📍 Bulawayo, Zimbabwe</li>
+            <li>💼 Applied Biology & Biochemistry</li>
+            <li>🎓 MSc Big Data Analytics</li>
+        </ul>
+
+        <div class="sidebar-links">
+            <a href="mailto:smpala@dataq.com" class="btn btn-primary">Contact Me</a>
+            <a href="https://github.com/yourusername" target="_blank" class="btn btn-secondary">GitHub Profile</a>
+            <a href="#" target="_blank" class="btn btn-secondary">Download CV</a>
+        </div>
+    </aside>
+
+    <main>
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                I am a laboratory professional and data analyst specializing at the intersection of biological systems and predictive computation. My focus centers heavily on utilizing tools like R and Python to derive actionable epidemiological and clinical insights, particularly within public health frameworks such as the One Health framework.
+            </p>
+            <p>
+                With a rigorous background in clinical research environments and laboratory quality standards, I bridge the gap between bench science and high-dimensional analytics—translating complex data matrices into stable applications, research frameworks, and scalable operational models.
+            </p>
+        </section>
+
+        <section id="experience">
+            <h2>Professional Initiatives</h2>
+            <div class="grid">
+                
+                <div class="card">
+                    <div class="card-title">Antimicrobial Resistance (AMR) Surveillance</div>
+                    <div class="card-meta">Lead Analyst / Research Focus</div>
+                    <p class="card-text">Developing predictive frameworks for tracking resistant phenotypes and pathogen pathways, translating localized laboratory isolates into automated tracking pipelines.</p>
+                    <div class="tags">
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">R Programming</span>
+                        <span class="tag">Epidemiology</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Laboratory Systems Optimization</div>
+                    <div class="card-meta">Academic Operations</div>
+                    <p class="card-text">Maintaining strict alignment with diagnostic benchmarks and quality data protocols while engineering computational pipelines for biological assays.</p>
+                    <div class="tags">
+                        <span class="tag">Data Verification</span>
+                        <span class="tag">HCI</span>
+                        <span class="tag">Quality Assurance</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Applications & Deployments</h2>
+            <div class="grid">
+                
+                <div class="card">
+                    <div class="card-title">Interactive Surveillance Dashboards</div>
+                    <div class="card-meta">R Shiny & Power BI Applications</div>
+                    <p class="card-text">Architecting interactive dashboards to map epidemiological patterns, making complex tracking data accessible for administrative decision-making.</p>
+                    <div class="tags">
+                        <span class="tag">R Shiny</span>
+                        <span class="tag">Data Visualization</span>
+                        <span class="tag">UI/UX</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Automated Analytics Engines</div>
+                    <div class="card-meta">Python Pipeline Packages</div>
+                    <p class="card-text">Developing script bundles and modular scrapers optimized for extracting, cleaning, and normalizing unstructured laboratory reporting data.</p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">ETL Pipelines</span>
+                        <span class="tag">Web Scraping</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Resource Infrastructure Modeling</div>
+                    <div class="card-meta">Sustainable Logistics</div>
+                    <p class="card-text">Engineering data-backed operational blueprints for community infrastructure projects, featuring automated ledger metrics and resource allocations.</p>
+                    <div class="tags">
+                        <span class="tag">Data Architecture</span>
+                        <span class="tag">Optimization</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Core Competencies</h2>
+            <div class="tags" style="gap: 0.75rem;">
+                <span class="tag" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Predictive Modeling</span>
+                <span class="tag" style="padding: 0.5rem 1rem; font-size: 0.85rem;">R & Bioconductor</span>
+                <span class="tag" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Python Data Stack</span>
+                <span class="tag" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Health Informatics</span>
+                <span class="tag" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Research Data Management</span>
+                <span class="tag" style="padding: 0.5rem 1rem; font-size: 0.85rem;">One Health Paradigms</span>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
